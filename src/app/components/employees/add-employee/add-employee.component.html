@@ -2,26 +2,50 @@
     <h1 class="mb-3">Add Employee</h1>
     <div class="row">
         <div class="col-6">
-            <form #form="ngForm" (ngSubmit)="addEmployee()">
+            <form #form="ngForm" (ngSubmit)="form.form.valid && addEmployee()" novalidate>
                 <div class="mb-3">
                   <label for="name" class="form-label">Name</label>
-                  <input type="text" class="form-control" id="name" name="name" [(ngModel)]="addEmployeeRequest.name">
+                  <input type="text" class="form-control" id="name" name="name" [(ngModel)]="addEmployeeRequest.name" 
+                  #name="ngModel" [ngClass]="{ 'is-invalid': form.submitted && name.invalid }" required>
+                  <div *ngIf="form.submitted && name.invalid" class="invalid-feedback">
+                    <div *ngIf="name.errors?.required">First Name is required</div>
+                </div>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" [(ngModel)] ="addEmployeeRequest.email">
+                    <input type="email" class="form-control" id="email" name="email" [(ngModel)] ="addEmployeeRequest.email"
+                    #email="ngModel" [ngClass]="{ 'is-invalid': form.submitted && email.invalid }" required
+                    >
+                    <div *ngIf="form.submitted && email.invalid" class="invalid-feedback">
+                      <div *ngIf="email.errors?.required">Email is required</div>
+                  </div>
                   </div>
                   <div class="mb-3">
                     <label for="phone" class="form-label">Phone</label>
-                    <input type="number" class="form-control" id="phone" name="phone" [(ngModel)] ="addEmployeeRequest.phone">
+                    <input type="number" class="form-control" id="phone" name="phone" [(ngModel)] ="addEmployeeRequest.phone"
+                    #phone="ngModel" [ngClass]="{ 'is-invalid': form.submitted && phone.invalid }" required
+                    >
+                    <div *ngIf="form.submitted && phone.invalid" class="invalid-feedback">
+                      <div *ngIf="phone.errors?.required">Phone is required</div>
+                  </div>
                   </div>
                   <div class="mb-3">
                     <label for="salary" class="form-label">Salary</label>
-                    <input type="number" class="form-control" id="salary" name="salary" [(ngModel)] ="addEmployeeRequest.salary">
+                    <input type="number" class="form-control" id="salary" name="salary" [(ngModel)] ="addEmployeeRequest.salary"
+                    #salary="ngModel" [ngClass]="{ 'is-invalid': form.submitted && salary.invalid }" required
+                    >
+                    <div *ngIf="form.submitted && salary.invalid" class="invalid-feedback">
+                      <div *ngIf="salary.errors?.required">Salary is required</div>
+                  </div>
                   </div>
                   <div class="mb-3">
                     <label for="department" class="form-label">Department</label>
-                    <input type="text" class="form-control" id="department" name="department" [(ngModel)] ="addEmployeeRequest.department">
+                    <input type="text" class="form-control" id="department" name="department" [(ngModel)] ="addEmployeeRequest.department"
+                    #department="ngModel" [ngClass]="{ 'is-invalid': form.submitted && department.invalid }" required
+                    >
+                    <div *ngIf="form.submitted && department.invalid" class="invalid-feedback">
+                      <div *ngIf="department.errors?.required">Department Name is required</div>
+                  </div>
                   </div>
                 <button type="submit" class="btn btn-primary">Save</button>
               </form>
