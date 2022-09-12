@@ -1,36 +1,51 @@
-<div class="container my-5">
-    <h1 class="mb-3">Edit Employee</h1>
-    <div class="row">
-        <div class="col-6">
-            <form #form="ngForm" (ngSubmit)="updateEmployee()">
-                <div class="mb-3"> 
-                    <label for="id" class="form-label">Id</label>
-                    <input type="text" class="form-control" id="id" name="id" [(ngModel)]="employeeDetails.id">
-                  </div> 
-                <div class="mb-3"> 
-                  <label for="name" class="form-label">Name</label>
-                  <input type="text" class="form-control" id="name" name="name" [(ngModel)]="employeeDetails.name">
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" [(ngModel)]="employeeDetails.email">
-                  </div>
-                  <div class="mb-3">
-                    <label for="phone" class="form-label">Phone</label>
-                    <input type="number" class="form-control" id="phone" name="phone" [(ngModel)]="employeeDetails.phone">
-                  </div>
-                  <div class="mb-3">
-                    <label for="salary" class="form-label">Salary</label>
-                    <input type="number" class="form-control" id="salary" name="salary" [(ngModel)]="employeeDetails.salary">
-                  </div>
-                  <div class="mb-3">
-                    <label for="department" class="form-label">Department</label>
-                    <input type="text" class="form-control" id="department" name="department" [(ngModel)]="employeeDetails.department">
-                  </div>
-                <button type="submit" class="btn btn-primary">Save</button>
-                <button type="submit" class="btn btn-danger" (click)="deleteEmployee()">Delete</button>
-              </form>
-        </div>
-    </div>
-</div>
+<mat-card>
+  <mat-card-title>Update Employee</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="addEmployeeForm" (ngSubmit)="updateEmployee()" class="example-form">
 
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="kossam" minlength="5" maxlength="30"
+          [(ngModel)]="employeeDetails.name" required>
+        <mat-error *ngIf="f.name.errors?.required">Name is required</mat-error>
+        <mat-error *ngIf="f.name.errors?.minlength">Minimum Length is 5 characters</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Email Address</mat-label>
+        <input matInput formControlName="email" placeholder="exapmle@gmail.com"
+          pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" [(ngModel)]="employeeDetails.email" required>
+        <mat-error *ngIf="f.email.errors?.required">Email is required</mat-error>
+        <mat-error *ngIf="f.email.errors?.pattern">Please enter a valid email address</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone" placeholder="+27777777777" pattern="^[0-9]{9}$" type="number"
+          [(ngModel)]="employeeDetails.phone" required>
+        <mat-error *ngIf="f.phone.errors?.required">Phone is required</mat-error>
+        <mat-error *ngIf="f.phone.errors?.pattern">Please enter a valid cell number</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Salary</mat-label>
+        <input matInput formControlName="salary" minlength="4" placeholder="2000" [(ngModel)]="employeeDetails.salary"
+          required>
+        <mat-error *ngIf="f.salary.errors?.required">Salary is required</mat-error>
+        <mat-error *ngIf="f.salary.errors?.minlength">Minimum Salary Length is 4 characters</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Department</mat-label>
+        <input matInput formControlName="department" minlength="5" maxlength="40" placeholder="Computer Science"
+          [(ngModel)]="employeeDetails.department" required>
+        <mat-error *ngIf="f.department.errors?.required">Department is required</mat-error>
+        <mat-error *ngIf="f.department.errors?.minlength">Minimum Length is 5 characters</mat-error>
+      </mat-form-field>
+      <div class="row">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!addEmployeeForm.valid">Update</button>
+        <button mat-raised-button color="warn" type="submit" (click)="deleteEmployee()">Delete</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

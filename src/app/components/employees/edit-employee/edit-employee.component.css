@@ -1,0 +1,17 @@
+mat-card  {
+    min-width: 200px;
+    max-width: 600px;
+    width: 100%;
+    margin-left: 5%;
+    margin-top: 2%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  button{
+    width: 40%;
+  }
+  .row{
+    justify-content: space-around;
+  }

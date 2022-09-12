@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from 'src/app/models/employee.model';
 import { EmployeesService } from 'src/app/services/employees.service';
@@ -10,6 +11,7 @@ import { EmployeesService } from 'src/app/services/employees.service';
 })
 export class EditEmployeeComponent implements OnInit {
 
+  addEmployeeForm!: FormGroup;
   employeeDetails: Employee= {
     id: '',
     name: '',
@@ -22,10 +24,20 @@ export class EditEmployeeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute, 
     private employeeService: EmployeesService,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder
     ) { }
 
   ngOnInit(): void {
+    this.addEmployeeForm = this.formBuilder.group({
+      id: [''],
+      name: ['', Validators.required],
+      email: ['', Validators.required],
+      phone: ['', Validators.required],
+      salary: ['', Validators.required],
+      department: ['', Validators.required]
+    });
+    
     this.route.paramMap.subscribe((params)=>{
      const id = params.get('id');
      if(id){
@@ -36,7 +48,9 @@ export class EditEmployeeComponent implements OnInit {
      }
     })
   }
-
+  get f() {
+    return this.addEmployeeForm.controls;
+  }
   updateEmployee(){
     this.employeeService.updateEmployee(this.employeeDetails.id, this.employeeDetails).subscribe((response)=>{
       console.log(response);

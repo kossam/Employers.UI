@@ -1,54 +1,46 @@
-<div class="container my-5">
-    <h1 class="mb-3">Add Employee</h1>
-    <div class="row">
-        <div class="col-6">
-            <form #form="ngForm" (ngSubmit)="form.form.valid && addEmployee()" novalidate>
-                <div class="mb-3">
-                  <label for="name" class="form-label">Name</label>
-                  <input type="text" class="form-control" id="name" name="name" [(ngModel)]="addEmployeeRequest.name" 
-                  #name="ngModel" [ngClass]="{ 'is-invalid': form.submitted && name.invalid }" required>
-                  <div *ngIf="form.submitted && name.invalid" class="invalid-feedback">
-                    <div *ngIf="name.errors?.required">First Name is required</div>
-                </div>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" [(ngModel)] ="addEmployeeRequest.email"
-                    #email="ngModel" [ngClass]="{ 'is-invalid': form.submitted && email.invalid }" required
-                    >
-                    <div *ngIf="form.submitted && email.invalid" class="invalid-feedback">
-                      <div *ngIf="email.errors?.required">Email is required</div>
-                  </div>
-                  </div>
-                  <div class="mb-3">
-                    <label for="phone" class="form-label">Phone</label>
-                    <input type="number" class="form-control" id="phone" name="phone" [(ngModel)] ="addEmployeeRequest.phone"
-                    #phone="ngModel" [ngClass]="{ 'is-invalid': form.submitted && phone.invalid }" required
-                    >
-                    <div *ngIf="form.submitted && phone.invalid" class="invalid-feedback">
-                      <div *ngIf="phone.errors?.required">Phone is required</div>
-                  </div>
-                  </div>
-                  <div class="mb-3">
-                    <label for="salary" class="form-label">Salary</label>
-                    <input type="number" class="form-control" id="salary" name="salary" [(ngModel)] ="addEmployeeRequest.salary"
-                    #salary="ngModel" [ngClass]="{ 'is-invalid': form.submitted && salary.invalid }" required
-                    >
-                    <div *ngIf="form.submitted && salary.invalid" class="invalid-feedback">
-                      <div *ngIf="salary.errors?.required">Salary is required</div>
-                  </div>
-                  </div>
-                  <div class="mb-3">
-                    <label for="department" class="form-label">Department</label>
-                    <input type="text" class="form-control" id="department" name="department" [(ngModel)] ="addEmployeeRequest.department"
-                    #department="ngModel" [ngClass]="{ 'is-invalid': form.submitted && department.invalid }" required
-                    >
-                    <div *ngIf="form.submitted && department.invalid" class="invalid-feedback">
-                      <div *ngIf="department.errors?.required">Department Name is required</div>
-                  </div>
-                  </div>
-                <button type="submit" class="btn btn-primary">Save</button>
-              </form>
-        </div>
-    </div>
-</div>
+<mat-card>
+  <mat-card-title>Add Employee</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="addEmployeeForm" (ngSubmit)="addEmployee()" class="example-form">
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="kossam" minlength="5" maxlength="30" required>
+        <mat-error *ngIf="f.name.errors?.required">Name is required</mat-error>
+        <mat-error *ngIf="f.name.errors?.minlength">Minimum Length is 5 characters</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Email Address</mat-label>
+        <input matInput formControlName="email" placeholder="exapmle@gmail.com"
+          pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required>
+        <mat-error *ngIf="f.email.errors?.required">Email is required</mat-error>
+        <mat-error *ngIf="f.email.errors?.pattern">Please enter a valid email address</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone" placeholder="+27777777777" pattern="^[0-9]{9}$" type="number" required>
+        <mat-error *ngIf="f.phone.errors?.required">Phone is required</mat-error>
+        <mat-error *ngIf="f.phone.errors?.pattern">Please enter a valid cell number</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Salary</mat-label>
+        <input matInput formControlName="salary" minlength="4" placeholder="2000" required>
+        <mat-error *ngIf="f.salary.errors?.required">Salary is required</mat-error>
+        <mat-error *ngIf="f.salary.errors?.minlength">Minimum Salary Length is 4 characters</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Department</mat-label>
+        <input matInput formControlName="department" minlength="5" maxlength="40" placeholder="Computer Science"
+          required>
+        <mat-error *ngIf="f.department.errors?.required">Department is required</mat-error>
+        <mat-error *ngIf="f.department.errors?.minlength">Minimum Length is 5 characters</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="!addEmployeeForm.valid">Save</button>
+    </form>
+  </mat-card-content>
+</mat-card>
