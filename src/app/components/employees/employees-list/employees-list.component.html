@@ -1,9 +1,10 @@
 <div class="container my-5">
     <h1 class="mb-3">Employees</h1>
-    <table class="table" *ngIf="employees">
+    <table class="table" *ngIf="employees && employees.length >0">
         <thead>
             <tr>
                 <!-- <th>Id</th> -->
+                <th>#</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
@@ -13,8 +14,9 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let employee of employees">
+            <tr *ngFor="let employee of employees; let i = index">
                 <!-- <td>{{employee.id}}</td> -->
+                <td>{{i+1}}</td>
                 <td>{{employee.name}}</td>
                 <td>{{employee.email}}</td>
                 <td>{{employee.phone}}</td>
@@ -24,6 +26,6 @@
             </tr>
         </tbody>
     </table>
-    <p *ngIf="!employees">No Employees</p>
+    <p *ngIf="!employees || employees.length <= 0">No Employees</p>
 
 </div>
