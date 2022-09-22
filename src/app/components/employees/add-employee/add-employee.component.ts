@@ -52,5 +52,4 @@ export class AddEmployeeComponent implements OnInit {
       this.toastr.error(error.error)
     })
   }
-
 }
