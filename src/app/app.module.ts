@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -35,6 +36,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatCardModule,
     MatTableModule,
     MatDialogModule,
+    MatIconModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-right',
       maxOpened: 1,
