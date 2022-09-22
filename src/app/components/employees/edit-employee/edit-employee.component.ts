@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Employee } from 'src/app/models/employee.model';
 import { EmployeesService } from 'src/app/services/employees.service';
 
@@ -25,7 +26,8 @@ export class EditEmployeeComponent implements OnInit {
     private route: ActivatedRoute, 
     private employeeService: EmployeesService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService
     ) { }
 
   ngOnInit(): void {
@@ -54,18 +56,20 @@ export class EditEmployeeComponent implements OnInit {
   updateEmployee(){
     this.employeeService.updateEmployee(this.employeeDetails.id, this.employeeDetails).subscribe((response)=>{
       console.log(response);
-
-      alert("Successfully Updated");
+      this.toastr.success('Employee Updated Successfully', 'Updated!')
       this.router.navigate(['/employees']);
-    })
+    });
   }
 
   deleteEmployee(){
     this.employeeService.deleteEmployee(this.employeeDetails.id).subscribe((response)=>{
       console.log(response);
-      alert("Deleted Successfully");
+      this.toastr.success('Employee Deleted Successfully', 'Deleted!')
       this.router.navigate(['/employees'])
-    })
+    }, (error) => {
+        this.toastr.error('Oops Something Went Wrong', error.error);
+        console.log(error)
+      })
   }
 
 }

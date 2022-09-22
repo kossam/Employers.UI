@@ -13,6 +13,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,14 @@ import { MatTableModule } from '@angular/material/table';
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right',
+      maxOpened: 1,
+      preventDuplicates: true,
+      autoDismiss: true
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

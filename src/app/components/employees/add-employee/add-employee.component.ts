@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Employee } from 'src/app/models/employee.model';
 import { EmployeesService } from 'src/app/services/employees.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-employee',
@@ -24,7 +25,7 @@ export class AddEmployeeComponent implements OnInit {
 
   }
 
-  constructor(private employeesService: EmployeesService, private router: Router, private formBuilder: FormBuilder) { }
+  constructor(private employeesService: EmployeesService, private router: Router, private formBuilder: FormBuilder, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.addEmployeeForm = this.formBuilder.group({
@@ -45,8 +46,10 @@ export class AddEmployeeComponent implements OnInit {
     }
     this.employeesService.addEmployee(this.addEmployeeForm.value).subscribe((response)=>{
       console.log(response)
-      alert("Successfully added an Employee");
+      this.toastr.success('Employee Added Successfully', 'Success!')
       this.router.navigate(['employees']);
+    }, (error) => {
+      this.toastr.error(error.error)
     })
   }
 
